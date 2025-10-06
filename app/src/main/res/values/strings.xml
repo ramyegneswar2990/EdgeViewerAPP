@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Edge Viewer</string>
+    <string name="toggle_mode">Toggle Mode</string>
+    <string name="save_frame">Save Frame</string>
+    <string name="permission_required">Camera permission is required</string>
+</resources>
