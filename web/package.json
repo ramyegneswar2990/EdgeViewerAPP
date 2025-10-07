@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "start": "npm run build && node -e \"require('http').createServer((req, res) => { const fs = require('fs'); const path = req.url === '/' ? '/public/index.html' : req.url; const file = './public' + path; fs.readFile(file, (err, data) => { if (err) { res.writeHead(404); res.end('Not found'); return; } const ext = path.split('.').pop(); const types = { 'html': 'text/html', 'js': 'text/javascript', 'css': 'text/css', 'png': 'image/png', 'jpg': 'image/jpeg' }; res.writeHead(200, { 'Content-Type': types[ext] || 'text/plain' }); res.end(data); }); }).listen(3000, () => console.log('Server running at http://localhost:3000'));\""
+    "start": "npm run build && node -e \"const port = process.env.PORT || 3000; require('http').createServer((req, res) => { const fs = require('fs'); const path = req.url === '/' ? '/index.html' : req.url; const file = './public' + path; fs.readFile(file, (err, data) => { if (err) { res.writeHead(404); res.end('Not found'); return; } const ext = (path.split('.').pop() || '').toLowerCase(); const types = { 'html': 'text/html', 'js': 'text/javascript', 'css': 'text/css', 'png': 'image/png', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg', 'svg': 'image/svg+xml', 'map': 'application/json' }; res.writeHead(200, { 'Content-Type': types[ext] || 'text/plain' }); res.end(data); }); }).listen(port, () => console.log('Server running at http://localhost:' + port));\"",
+    "serve": "node server.js"
   },
   "keywords": [
     "typescript",
@@ -18,5 +19,8 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "ws": "^8.17.0"
   }
 }
