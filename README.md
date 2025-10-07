@@ -174,7 +174,7 @@ This project includes comprehensive documentation:
 
 ## 📷 Screenshots
 
-*(Add screenshots/GIF here after running the app)*
+
 
 ## 🚀 Performance
 
