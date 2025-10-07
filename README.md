@@ -174,19 +174,6 @@ This project includes comprehensive documentation:
 
 ## 📷 Screenshots
 
-## Web Application
-<img width="1864" height="973" alt="Screenshot 2025-10-08 000106" src="https://github.com/user-attachments/assets/54ca7cf8-10bb-4532-9a96-7887e4cbf960" />
-
-## Andriod
-![WhatsApp Image 2025-10-08 at 03 11 53_e729fe51](https://github.com/user-attachments/assets/52b30acf-7809-4d3d-915f-f27a939a3820)
-![WhatsApp Image 2025-10-08 at 00 00 51_14ff521c](https://github.com/user-attachments/assets/e9253b56-42ed-4183-abc2-790f8bfeaa52)
-![WhatsApp Image 2025-10-08 at 00 00 51_bd54ac5e](https://github.com/user-attachments/assets/57e45b45-4e74-41ae-98d8-0670223a7fbb)
-![WhatsApp Image 2025-10-08 at 00 00 50_d779ceaa](https://github.com/user-attachments/assets/ae07f940-5d8e-489b-a22b-4dd5e09679d0)
-
-
-
-
-
 
 
 ## 🚀 Performance
@@ -226,7 +213,9 @@ This project demonstrates:
 - ✅ TypeScript web development
 - ✅ Cross-platform data serialization (base64)
 
+## 📄 License
 
+MIT License - Educational/Assessment Purpose
 
 ## 👤 Author
 
@@ -234,7 +223,7 @@ Built for RnD Intern Assessment (3-day challenge)
 
 ## 🔗 Repository
 
-**Git Commits**: 40 granular commits with clear, meaningful messages
+**Git Commits**: 11 granular commits with clear, meaningful messages
 
 ```bash
 # View commit history
@@ -267,7 +256,7 @@ cd flam
 ---
 
 **Status**: ✅ Complete and ready for evaluation  
-**Submission Date**: 2025-10-08 
-
+**Submission Date**: 2025-10-06  
+**Assessment Duration**: 3 Days
 
 **Commit History**: This project follows proper Git practices with granular, meaningful commits. Check the commit log for development progression.
