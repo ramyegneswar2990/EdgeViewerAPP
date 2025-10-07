@@ -29,6 +29,17 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="16dp" />
 
+    <!-- Small corner strip for recent thumbnails -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/thumbnailList"
+        android:layout_width="wrap_content"
+        android:layout_height="96dp"
+        android:overScrollMode="never"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@id/controlPanel"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="12dp" />
+
     <LinearLayout
         android:id="@+id/controlPanel"
         android:layout_width="0dp"
@@ -57,5 +68,38 @@
             android:layout_marginStart="8dp" />
 
     </LinearLayout>
+
+    <!-- Full-screen overlay for enlarged image -->
+    <FrameLayout
+        android:id="@+id/imageOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="#CC000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imageOverlayView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:contentDescription="Enlarged image"/>
+
+        <ImageButton
+            android:id="@+id/imageOverlayClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="12dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="@android:color/white"
+            android:contentDescription="Close" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
