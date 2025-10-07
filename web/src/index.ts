@@ -18,6 +18,7 @@ class EdgeViewerWeb {
     private imageElement: HTMLImageElement;
     private wsStatusElement: HTMLElement;
     private websocket: WebSocket | null = null;
+    private lastWsMessageAt = 0;
     
     private currentFrame: FrameData | null = null;
     private frameCount = 0;
@@ -37,10 +38,10 @@ class EdgeViewerWeb {
     private init(): void {
         console.log('Edge Viewer Web initialized');
         
-        // Load sample frame
-        this.loadSampleFrame();
-        
-        // Setup WebSocket (mock for now)
+        // Sample frame disabled to avoid visual confusion
+        // this.loadSampleFrame();
+
+        // Setup WebSocket (receives frames if a sender connects)
         this.setupWebSocket();
         
         // Setup file upload
@@ -144,14 +145,15 @@ class EdgeViewerWeb {
     }
 
     private setupWebSocket(): void {
-        const wsUrl = 'ws://localhost:8080/frames'; // Mock endpoint
+        const wsProto = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const wsUrl = `${wsProto}://${window.location.host}/frames`;
         
         try {
             this.websocket = new WebSocket(wsUrl);
             
             this.websocket.onopen = () => {
                 console.log('WebSocket connected');
-                this.wsStatusElement.textContent = 'Connected';
+                this.wsStatusElement.textContent = 'Connected (No frames)';
                 this.wsStatusElement.className = 'ws-status connected';
             };
 
@@ -159,6 +161,9 @@ class EdgeViewerWeb {
                 try {
                     const frame: FrameData = JSON.parse(event.data);
                     this.displayFrame(frame);
+                    this.lastWsMessageAt = Date.now();
+                    this.wsStatusElement.textContent = 'Receiving…';
+                    this.wsStatusElement.className = 'ws-status connected';
                 } catch (e) {
                     console.error('Failed to parse frame data:', e);
                 }
@@ -193,13 +198,68 @@ class EdgeViewerWeb {
             const file = (event.target as HTMLInputElement).files?.[0];
             if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const content = e.target?.result as string;
-                this.parseFrameFile(content);
-            };
-            reader.readAsText(file);
+            // Accept PNG/JPG images or legacy .txt frame exports
+            const isImage = file.type.startsWith('image/') || /\.(png|jpe?g)$/i.test(file.name);
+            console.log('[Upload] Selected file:', file.name, 'type:', file.type, 'isImage:', isImage);
+            if (isImage) {
+                this.loadImageFile(file);
+            } else {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const content = e.target?.result as string;
+                    console.log('[Upload] TXT content length:', content?.length || 0);
+                    this.parseFrameFile(content);
+                    // Indicate manual load
+                    this.wsStatusElement.textContent = 'Loaded file';
+                    this.wsStatusElement.className = 'ws-status mock';
+                };
+                reader.readAsText(file);
+            }
+            // Reset input so selecting the same file again re-triggers change
+            setTimeout(() => { fileInput.value = ''; }, 0);
         });
+    }
+
+    private loadImageFile(file: File): void {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const dataUrl = e.target?.result as string;
+            if (!dataUrl) {
+                console.error('[Upload] Empty DataURL');
+                alert('Failed to read image file.');
+                return;
+            }
+            const img = new Image();
+            img.onload = () => {
+                // Draw image to canvas
+                this.canvas.width = img.width;
+                this.canvas.height = img.height;
+                this.ctx.drawImage(img, 0, 0);
+
+                // Update currentFrame for stats
+                const format = (file.type || '').toUpperCase().replace('IMAGE/', '') || 'PNG/JPEG';
+                this.currentFrame = {
+                    width: img.width,
+                    height: img.height,
+                    format,
+                    base64: dataUrl.split(',')[1] || '',
+                    timestamp: Date.now()
+                };
+                this.updateStats();
+                console.log('[Upload] Image rendered:', img.width, 'x', img.height, 'format:', format);
+                const ws = this.wsStatusElement;
+                if (ws) {
+                    ws.textContent = 'Loaded file';
+                    ws.className = 'ws-status mock';
+                }
+            };
+            img.src = dataUrl;
+        };
+        reader.onerror = (err) => {
+            console.error('[Upload] FileReader error:', err);
+            alert('Failed to read image file.');
+        };
+        reader.readAsDataURL(file);
     }
 
     private parseFrameFile(content: string): void {
