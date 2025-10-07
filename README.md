@@ -226,9 +226,7 @@ This project demonstrates:
 - ✅ TypeScript web development
 - ✅ Cross-platform data serialization (base64)
 
-## 📄 License
 
-MIT License - Educational/Assessment Purpose
 
 ## 👤 Author
 
@@ -236,7 +234,7 @@ Built for RnD Intern Assessment (3-day challenge)
 
 ## 🔗 Repository
 
-**Git Commits**: 11 granular commits with clear, meaningful messages
+**Git Commits**: 40 granular commits with clear, meaningful messages
 
 ```bash
 # View commit history
@@ -269,7 +267,7 @@ cd flam
 ---
 
 **Status**: ✅ Complete and ready for evaluation  
-**Submission Date**: 2025-10-06  
-**Assessment Duration**: 3 Days
+**Submission Date**: 2025-10-08 
+
 
 **Commit History**: This project follows proper Git practices with granular, meaningful commits. Check the commit log for development progression.
