@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # OpenCV path (adjust based on your OpenCV Android SDK location)
-set(OpenCV_DIR "${CMAKE_SOURCE_DIR}/../../../../../opencv-android-sdk/sdk/native/jni")
+set(OpenCV_DIR "C:/Users/bodap/OneDrive/Desktop/flam/opencv-android-sdk/sdk/native/jni")
 
 # Find OpenCV
 find_package(OpenCV REQUIRED)
