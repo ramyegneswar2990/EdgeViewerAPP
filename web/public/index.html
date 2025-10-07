@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edge Viewer Web - Android Frame Viewer</title>
+    <link rel="icon" href="data:;base64,=">
     <style>
         * {
             margin: 0;
@@ -238,8 +239,8 @@
             </div>
 
             <div class="controls">
-                <button id="uploadBtn">📁 Load Frame File</button>
-                <input type="file" id="fileInput" accept=".txt" />
+                <button id="uploadBtn">📁 Load Frame (TXT/PNG/JPG)</button>
+                <input type="file" id="fileInput" accept=".txt,.png,.jpg,.jpeg,image/png,image/jpeg" />
                 <span class="ws-status mock" id="wsStatus">Initializing...</span>
             </div>
 
@@ -255,6 +256,6 @@
         </div>
     </div>
 
-    <script type="module" src="../dist/index.js"></script>
+    <script type="module" src="./dist/index.js"></script>
 </body>
 </html>
